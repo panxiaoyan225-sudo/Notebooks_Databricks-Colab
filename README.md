@@ -1,4 +1,4 @@
-# 🏥 Healthcare Staffing & Analytics project
+# 🏥 Healthcare Staffing & Analytics pipeline
 
 This repository contains a Google Colab-based data engineering and analytics project focused on **Skilled Nursing Facility (SNF)** staffing data. The project automates the extraction, transformation, and analysis of large-scale healthcare datasets using Python, SQL, and Pandas.
 
