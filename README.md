@@ -1,14 +1,25 @@
-# 🏥 Healthcare Staffing & Analytics Pipeline
+# 🏥 Healthcare Staffing & Analytics Orchestration Engine
 
-This repository contains a Google Colab-based data engineering and analytics project focused on **Skilled Nursing Facility (SNF)** staffing data. The project automates the extraction, transformation, and analysis of large-scale healthcare datasets using Python, SQL, and Pandas.
+**An automated data engineering solution that synchronizes Payroll-Based Journal (PBJ) staffing records with facility metadata to generate actionable labor and compliance intelligence.**
+
+## 💡 How Google Colab Works in this Project
+
+This project is built as a **Google Colab Notebook**, which is a cloud-based interactive computing environment. 
+
+
+
+Unlike a traditional static script, Colab allows this project to:
+* **Run in the Cloud:** All heavy data processing is handled by Google’s virtual machines (VMs), meaning no local installation of Python or SQL is required.
+* **Combine Code & Context:** It weaves together executable Python blocks, SQL queries, and descriptive documentation (like the Data Dictionary below) into a single "live" document.
+* **Manage Resources:** It automatically handles the memory and storage needed to host the in-memory SQLite database used for the facility analysis.
 
 ## 🚀 Project Overview
 
-The core objective of this project is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility metadata to generate actionable business intelligence. It features a hybrid approach of using **Python** for complex data cleaning and **SQLite** for structured analytical querying.
+The core objective of this project is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records to generate business intelligence. It features a hybrid approach of using **Python** for complex data cleaning and **SQLite** for structured analytical querying within a centralized automation suite.
 
 ### Key Capabilities Demonstrated:
 - **Automated Data Retrieval:** Uses `gdown` to programmatically pull source CSVs from remote cloud storage.
-- **Complex ETL Pipelines:** Transforms "melted" staffing data, standardizes unique identifiers (CMS IDs) with zero-padding, and handles mixed-type data ingestion.
+- **Complex ETL Workflows:** Transforms "melted" staffing data, standardizes unique identifiers (CMS IDs) with zero-padding, and handles mixed-type data ingestion.
 - **SQL Orchestration:** Builds an in-memory SQLite database to perform relational joins across multiple datasets.
 - **Matched Contact Discovery:** Implements a Python-based matching algorithm to pair high-volume facilities with their respective administrative contact information.
 
@@ -40,7 +51,7 @@ A targeted script to identify the top 100 facilities by labor volume and retriev
 
 ## 📈 Sample Output
 
-The pipeline generates structured insights such as:
+The orchestration engine generates structured insights such as:
 - **Market Share:** "PACS GROUP" represents ~14.98% of statewide staffing hours.
 - **Data Integrity:** Standardized matching achieved across 78+ high-priority facilities despite naming inconsistencies in raw licensure files.
 
