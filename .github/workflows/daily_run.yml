@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pandas requests
+          pip install pandas requests plotly
 
       - name: Run python.py
         # Replace 'staffing_script.py' with your actual python file name
