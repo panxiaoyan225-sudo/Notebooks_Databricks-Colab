@@ -3,39 +3,43 @@
 **An automated data engineering solution that synchronizes Payroll-Based Journal (PBJ) staffing records with facility metadata to generate actionable labor and compliance intelligence.**
 
 ## 🎯 Project Purpose: Architectural Comparison
-This project demonstrates two distinct methods for handling healthcare data ETL and analytics. By providing both **Google Colab** and **Databricks** versions, it compares how data workflows scale from individual research environments to enterprise-grade data lakehouses.
+This project demonstrates three distinct methods for handling healthcare data ETL and analytics, showcasing how workflows transition from local prototyping to enterprise-scale environments.
 
-| Feature | **Method 1: Google Colab** | **Method 2: Azure Databricks** |
-| :--- | :--- | :--- |
-| **Engine** | Local Python + In-Memory SQLite | Distributed Apache Spark (PySpark) |
-| **Data Handling** | Single-node RAM (Pandas) | Multi-node Cluster (Spark DataFrames) |
-| **Storage** | Temporary VM Storage | Delta Lake / DBFS |
-| **Ideal Use Case** | Rapid Prototyping & Small Datasets | Big Data Production & ETL Pipelines |
+| Feature | **Method 1: Google Colab** | **Method 2: Databricks (Local)** | **Method 3: Databricks (Spark)** |
+| :--- | :--- | :--- | :--- |
+| **Engine** | Python + In-Memory SQLite | **Local Python (Pandas)** | Apache Spark (PySpark) |
+| **Execution** | Cloud VM (Single Node) | **Databricks Driver Node** | Distributed Cluster |
+| **Data Handling** | In-memory SQL | **Vectorized Pandas DataFrames** | Spark Partitioned RDDs |
+| **Scaling** | Small Datasets (<500MB) | **Medium Datasets (<2GB)** | Big Data (Multi-GB/TB) |
 
 ---
 
 ## 🚀 Project Overview
-The core objective is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records. It features a hybrid approach of using **Python** for complex data cleaning and **Relational Queries** for structured analytical reporting.
+The core objective is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records. It features a hybrid approach of using **Python** for complex data cleaning and **Relational Logic** for structured analytical reporting.
 
 ### Key Capabilities Demonstrated:
-- **Automated Data Retrieval:** Programmatic ingestion of source CSVs from remote cloud storage.
-- **Advanced ETL Workflows:** Standardizing unique identifiers (CMS IDs) with zero-padding to ensure 100% join accuracy.
-- **Data Unpivoting:** Transforming wide-format staffing records into long-format time-series data.
-- **Admin Contact Discovery:** A fuzzy-matching logic to pair high-volume facilities with their respective administrative leadership for outreach.
+- **Automated Data Retrieval:** Programmatic ingestion of source CSVs from remote cloud storage using `requests` and `io`.
+- **Robust ETL Pipelines:** Dynamic column detection and regex-based header cleaning to prevent pipeline breaks.
+- **Data Standardization:** Automated zero-padding of CMS IDs and fuzzy-matching logic for administrator contact discovery.
+- **Multimodal Orchestration:** Identical business logic implemented across SQLite, Pandas, and PySpark.
 
 ---
 
 ## 💡 Method 1: Google Colab (Lightweight Analytics)
-The Colab version is built for accessibility and speed.
-* **Run in the Cloud:** No local installation of Python or SQL is required.
-* **SQLite Orchestration:** Uses an in-memory SQL engine to perform relational joins across datasets without needing a dedicated server.
-* **Interactive Documentation:** Weaves together code, SQL results, and data dictionaries into a single "live" document.
+Ideal for rapid prototyping and interactive documentation.
+* **Zero Setup:** Runs in any browser with no local installation required.
+* **SQLite Orchestration:** Uses an in-memory SQL engine to perform relational joins within a single "live" document.
 
-## 🧱 Method 2: Databricks (Enterprise Orchestration)
-The Databricks version is built for scalability and data integrity.
-* **Spark SQL Optimization:** Replaces SQLite with Spark SQL Global Views, allowing for massive parallel processing of millions of records.
-* **Schema Enforcement:** Uses Spark DataFrames to ensure data types (Integers, Doubles, Strings) remain consistent across the pipeline.
-* **Production Ready:** Designed to be converted into a "Databricks Job" for automated weekly reporting.
+## 🐍 Method 2: Databricks Local Python (Optimized Performance)
+Newly added **Pandas-based** implementation for Databricks.
+* **Low Overhead:** Executes entirely on the cluster's Driver node, bypassing Spark's distribution overhead for faster performance on medium-sized datasets.
+* **Dynamic Cleaning:** Features advanced regex cleaning to handle inconsistent government data headers automatically.
+* **Decision Intelligence:** Optimized for rapid iteration and high-speed data manipulation.
+
+## 🧱 Method 3: Databricks Spark (Enterprise Scaling)
+The enterprise-grade version built for massive datasets and production reliability.
+* **Spark SQL Optimization:** Uses Global Temp Views for parallelized analytical queries.
+* **Production Ready:** Designed for scheduled Databricks Jobs and integration with Delta Lake architectures.
 
 ---
 
@@ -49,27 +53,21 @@ The project utilizes several key datasets related to healthcare operations:
 
 ## 🛠️ Installation & Usage
 
-### For Colab:
-1. Upload the `.ipynb` file to Google Colab.
-2. Ensure you have the required Google Drive file IDs.
-3. Select `Runtime > Run all`.
-
-### For Databricks:
-1. Import the notebook into your Databricks Workspace.
-2. Attach the notebook to a running Cluster (Runtime 10.4 LTS or higher recommended).
-3. Ensure your **Git Integration** is configured to sync with this repository.
-4. Run the cells sequentially to initialize the Spark Views.
+### For Databricks (Local Python or Spark):
+1. Import the `.ipynb` files into your Databricks Workspace.
+2. Attach the notebook to a running Cluster (Runtime 10.4 LTS or higher).
+3. **For Local Python:** Run the cell labeled `FINAL STABLE LOCAL PANDAS PORT`.
+4. **For Spark:** Run the cell labeled `CELL 1: Setup and Data Ingestion`.
 
 ---
 
 ## 🧪 Analytical Examples Included
 
 ### 1. Chain-Level Staffing Analysis
-Aggregates statewide staffing hours to identify the top 10 healthcare chains by volume.
-- **Calculates:** Total facilities, active reporting units, and percentage of statewide market share.
+Aggregates statewide staffing hours to identify the top 10 healthcare chains by volume and market share.
 
 ### 2. Admin Contact Matching
-A targeted script to identify the top 100 facilities by labor volume and retrieve their administrator's contact details for business development.
+A targeted algorithm to identify the top 100 facilities by labor volume and retrieve their administrator's contact details for business development outreach.
 
 ---
-*Note: This project was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering across both research and enterprise environments.*
+*Note: This project was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering across research, mid-market, and enterprise environments.*
