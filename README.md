@@ -2,58 +2,74 @@
 
 **An automated data engineering solution that synchronizes Payroll-Based Journal (PBJ) staffing records with facility metadata to generate actionable labor and compliance intelligence.**
 
-## 💡 How Google Colab Works in this Project
+## 🎯 Project Purpose: Architectural Comparison
+This project demonstrates two distinct methods for handling healthcare data ETL and analytics. By providing both **Google Colab** and **Databricks** versions, it compares how data workflows scale from individual research environments to enterprise-grade data lakehouses.
 
-This project is built as a **Google Colab Notebook**, which is a cloud-based interactive computing environment. 
+| Feature | **Method 1: Google Colab** | **Method 2: Azure Databricks** |
+| :--- | :--- | :--- |
+| **Engine** | Local Python + In-Memory SQLite | Distributed Apache Spark (PySpark) |
+| **Data Handling** | Single-node RAM (Pandas) | Multi-node Cluster (Spark DataFrames) |
+| **Storage** | Temporary VM Storage | Delta Lake / DBFS |
+| **Ideal Use Case** | Rapid Prototyping & Small Datasets | Big Data Production & ETL Pipelines |
 
-
-
-Unlike a traditional static script, Colab allows this project to:
-* **Run in the Cloud:** All heavy data processing is handled by Google’s virtual machines (VMs), meaning no local installation of Python or SQL is required.
-* **Combine Code & Context:** It weaves together executable Python blocks, SQL queries, and descriptive documentation (like the Data Dictionary below) into a single "live" document.
-* **Manage Resources:** It automatically handles the memory and storage needed to host the in-memory SQLite database used for the facility analysis.
+---
 
 ## 🚀 Project Overview
-
-The core objective of this project is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records to generate business intelligence. It features a hybrid approach of using **Python** for complex data cleaning and **SQLite** for structured analytical querying within a centralized automation suite.
+The core objective is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records. It features a hybrid approach of using **Python** for complex data cleaning and **Relational Queries** for structured analytical reporting.
 
 ### Key Capabilities Demonstrated:
-- **Automated Data Retrieval:** Uses `gdown` to programmatically pull source CSVs from remote cloud storage.
-- **Complex ETL Workflows:** Transforms "melted" staffing data, standardizes unique identifiers (CMS IDs) with zero-padding, and handles mixed-type data ingestion.
-- **SQL Orchestration:** Builds an in-memory SQLite database to perform relational joins across multiple datasets.
-- **Matched Contact Discovery:** Implements a Python-based matching algorithm to pair high-volume facilities with their respective administrative contact information.
+- **Automated Data Retrieval:** Programmatic ingestion of source CSVs from remote cloud storage.
+- **Advanced ETL Workflows:** Standardizing unique identifiers (CMS IDs) with zero-padding to ensure 100% join accuracy.
+- **Data Unpivoting:** Transforming wide-format staffing records into long-format time-series data.
+- **Admin Contact Discovery:** A fuzzy-matching logic to pair high-volume facilities with their respective administrative leadership for outreach.
+
+---
+
+## 💡 Method 1: Google Colab (Lightweight Analytics)
+The Colab version is built for accessibility and speed.
+* **Run in the Cloud:** No local installation of Python or SQL is required.
+* **SQLite Orchestration:** Uses an in-memory SQL engine to perform relational joins across datasets without needing a dedicated server.
+* **Interactive Documentation:** Weaves together code, SQL results, and data dictionaries into a single "live" document.
+
+## 🧱 Method 2: Databricks (Enterprise Orchestration)
+The Databricks version is built for scalability and data integrity.
+* **Spark SQL Optimization:** Replaces SQLite with Spark SQL Global Views, allowing for massive parallel processing of millions of records.
+* **Schema Enforcement:** Uses Spark DataFrames to ensure data types (Integers, Doubles, Strings) remain consistent across the pipeline.
+* **Production Ready:** Designed to be converted into a "Databricks Job" for automated weekly reporting.
+
+---
 
 ## 📊 The Data Stack
-
 The project utilizes several key datasets related to healthcare operations:
-* **Facilities Table:** Metadata for California/Illinois skilled nursing facilities (ratings, bed counts, locations).
+* **Facilities Table:** Metadata for skilled nursing facilities (ratings, bed counts, locations).
 * **PBJ Hours:** Staffing activity for RN, LPN, and CNA roles.
 * **Admin Details:** Licensure data including administrator names and contact emails.
-* **Shifts & Deals:** Synthetic operational and financial data used for revenue and commission modeling.
+
+---
 
 ## 🛠️ Installation & Usage
 
-1. **Open in Colab:** Upload the `.ipynb` file to your Google Colab environment.
-2. **Environment Setup:** The notebook automatically installs necessary dependencies like `gdown`.
-3. **Execution:** Click `Runtime > Run all`.
-    - The script will download approximately 25MB of source data.
-    - It initializes an in-memory SQLite database.
-    - It executes the analytical assessment questions.
+### For Colab:
+1. Upload the `.ipynb` file to Google Colab.
+2. Ensure you have the required Google Drive file IDs.
+3. Select `Runtime > Run all`.
+
+### For Databricks:
+1. Import the notebook into your Databricks Workspace.
+2. Attach the notebook to a running Cluster (Runtime 10.4 LTS or higher recommended).
+3. Ensure your **Git Integration** is configured to sync with this repository.
+4. Run the cells sequentially to initialize the Spark Views.
+
+---
 
 ## 🧪 Analytical Examples Included
 
-### 1. Chain-Level Staffing Analysis (SQL)
-Aggregates statewide staffing hours to identify the top 10 healthcare chains by volume. 
-- **Calculates:** Total facilities, facilities with active reporting, and percentage of statewide hours.
+### 1. Chain-Level Staffing Analysis
+Aggregates statewide staffing hours to identify the top 10 healthcare chains by volume.
+- **Calculates:** Total facilities, active reporting units, and percentage of statewide market share.
 
-### 2. Admin Contact Matching (Python/Pandas)
-A targeted script to identify the top 100 facilities by labor volume and retrieve their administrator's contact details for business development outreach.
-
-## 📈 Sample Output
-
-The orchestration engine generates structured insights such as:
-- **Market Share:** "PACS GROUP" represents ~14.98% of statewide staffing hours.
-- **Data Integrity:** Standardized matching achieved across 78+ high-priority facilities despite naming inconsistencies in raw licensure files.
+### 2. Admin Contact Matching
+A targeted script to identify the top 100 facilities by labor volume and retrieve their administrator's contact details for business development.
 
 ---
-*Note: This project was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering.*
+*Note: This project was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering across both research and enterprise environments.*
