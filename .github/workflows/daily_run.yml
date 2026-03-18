@@ -25,3 +25,17 @@ jobs:
       - name: Run python.py
         # Replace 'staffing_script.py' with your actual python file name
         run: python python.py
+
+      - name: Upload Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: staffing-report
+        path: final_staffing_report.csv
+
+      - name: Upload Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: staffing-report-and-map
+        path: |
+          final_staffing_report.csv
+          staffing_map.html

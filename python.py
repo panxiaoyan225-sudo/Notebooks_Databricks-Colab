@@ -183,3 +183,8 @@ fig = px.scatter_mapbox(
 # Optimize layout
 fig.update_layout(margin={"r":0,"t":50,"l":0,"b":0})
 fig.show()
+# Assuming your map variable is named 'fig'
+fig.write_html("staffing_map.html")
+
+# This saves the file in the GitHub runner's memory
+chain_report.to_csv("final_staffing_report.csv", index=False)
