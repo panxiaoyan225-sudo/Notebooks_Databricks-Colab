@@ -54,7 +54,7 @@ try:
     final_output = pd.merge(report, df_adm[['FAC_NAME_CLEAN', 'FACADMIN', 'CONTACT_EMAIL']], on='FAC_NAME_CLEAN', how='left')
 
     print("✅ Success: Data matched dynamically.")
-    display(final_output[['CMS_ID', 'FAC_NAME_CLEAN', 'FACADMIN', 'CONTACT_EMAIL', 'TOTAL_HOURS']])
+    print(final_output[['CMS_ID', 'FAC_NAME_CLEAN', 'FACADMIN', 'CONTACT_EMAIL', 'TOTAL_HOURS']])
 
 except Exception as e:
     print(f"❌ Error Detail: {e}")
