@@ -22,6 +22,6 @@ jobs:
         run: |
           pip install pandas requests
 
-      - name: Run databricks_python
+      - name: Run python.py
         # Replace 'staffing_script.py' with your actual python file name
-        run: python databricks_python.py
+        run: python python.py
