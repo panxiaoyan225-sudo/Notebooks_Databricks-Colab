@@ -1,6 +1,6 @@
 # 🏥 Healthcare Staffing & Analytics Orchestration Engine
 
-**An automated data engineering solution that synchronizes Payroll-Based Journal (PBJ) staffing records with facility metadata to generate actionable labor and compliance intelligence.**
+**An automated data engineering solution that triggered and scheduled via GitHub Actions.**
 
 ## 🎯 Project Purpose: Architectural Comparison
 This project demonstrates three distinct methods for handling healthcare data ETL and analytics, showcasing how workflows transition from local prototyping to enterprise-scale environments.
