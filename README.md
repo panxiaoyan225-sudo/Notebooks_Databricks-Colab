@@ -1,4 +1,5 @@
 # 🏥 Healthcare Staffing & Analytics Orchestration Engine
+[🏥 View Interactive Healthcare Analytics Infographic](https://panxiaoyan225-sudo.github.io/Notebooks_Databricks-Colab/healthcare_infographic.html)
 
 **An automated data engineering solution that triggered and scheduled via GitHub Actions.**
 
