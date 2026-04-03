@@ -3,7 +3,7 @@
 **/venv/
 **/.env
 **/*.csv
-**/*.html
+
 
 # Specific to your screenshot (optional but good practice)
 **/.streamlit/secrets.toml
