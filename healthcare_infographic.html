@@ -15,7 +15,11 @@
             color: #18181B; 
             font-family: 'Inter', system-ui, sans-serif; 
         }
-        .chart-container { position: relative; width: 100%; height: 180px; }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            display: block;
+        }
         .premium-card { 
             background: white; 
             border-radius: 0.5rem; 
@@ -72,7 +76,7 @@
                 <p class="text-[11px] text-zinc-500">Scale performance comparisons using relative framework efficiency indexes.</p>
             </div>
             <div class="chart-container">
-                <canvas id="scalingChart"></canvas>
+                <canvas id="scalingChart" width="400" height="200"></canvas>
             </div>
             <div class="p-2.5 bg-zinc-50 rounded border border-zinc-100 text-[11px] text-zinc-600">
                 <strong>Decision Insight:</strong> For datasets &lt; 2GB, Method 2 (Pandas on Driver) outperforms Spark by completely eliminating distributed shuffle overhead.
@@ -132,6 +136,12 @@
     </main>
 
     <script>
+        // Prevent Chart.js duplicate binding artifacts during live reloads
+        let existingChart = Chart.getChart("scalingChart");
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
         const ctx = document.getElementById('scalingChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
@@ -150,4 +160,54 @@
                     },
                     {
                         label: 'Databricks (Pandas)',
-                        data:
+                        data: [95, 98, 90, 40, 10],
+                        borderColor: '#059669',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 2
+                    },
+                    {
+                        label: 'Databricks (Spark)',
+                        data: [60, 75, 85, 98, 100],
+                        borderColor: '#27272A',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2, 
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { 
+                        position: 'bottom', 
+                        labels: { boxWidth: 8, font: { size: 10, family: "'Inter', sans-serif" }, padding: 12 } 
+                    },
+                    tooltip: {
+                        backgroundColor: '#18181B',
+                        padding: 6,
+                        titleFont: { size: 10 },
+                        bodyFont: { size: 10 }
+                    }
+                },
+                scales: {
+                    y: { 
+                        grid: { color: '#F4F4F5' },
+                        ticks: { color: '#A1A1AA', font: { size: 9 } },
+                        title: { display: true, text: 'Efficiency Score', color: '#71717A', font: { size: 9, weight: '500' } }
+                    },
+                    x: { 
+                        grid: { display: false },
+                        ticks: { color: '#27272A', font: { size: 10, weight: '500' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
