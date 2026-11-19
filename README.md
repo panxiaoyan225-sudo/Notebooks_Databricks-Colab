@@ -1,9 +1,11 @@
+# 🏥 Distributed Decision Intelligence Engine
+
 ## 🎯 Architectural Comparison
 Three distinct methods for handling healthcare data ETL and analytics, showcasing how workflows transition from local prototyping to enterprise-scale environments.
 
 | Feature | **Method 1: Google Colab** | **Method 2: Databricks (Local)** | **Method 3: Databricks (Spark)** |
 | :--- | :--- | :--- | :--- |
-| **Engine** | Python + In-Memory SQLite | Local Python (Pandas)| Apache Spark (PySpark) |
+| **Engine** | Python + In-Memory SQLite | Local Python (Pandas) | Apache Spark (PySpark) |
 | **Execution** | Cloud VM (Single Node) | Databricks Driver Node | Distributed Cluster |
 | **Data Handling** | In-memory SQL | Vectorized Pandas DataFrames | Spark Partitioned RDDs |
 | **Scaling** | Small Datasets (<500MB) | Medium Datasets (<2GB) | Big Data (Multi-GB/TB) |
@@ -13,9 +15,10 @@ Three distinct methods for handling healthcare data ETL and analytics, showcasin
  
 [🏥 Interactive Analytics Infographic](https://panxiaoyan225-sudo.github.io/Notebooks_Databricks-Colab/healthcare_infographic.html)
 
-An automated data engineering solution that triggered and scheduled via Databricks/ GitHub Actions.
+**An automated data engineering solution that triggered and scheduled via Databricks/ GitHub Actions.**
+
 ## 🚀 Overview
-Processing Payroll-Based Journal staffing hours and align them with facility records: a hybrid approach for complex data cleaning and Relational Logicfor structured analytical reporting.
+The core objective is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records. It features a hybrid approach of using **Python** for complex data cleaning and **Relational Logic** for structured analytical reporting.
 
 ### Key Capabilities Demonstrated:
 - **Automated Data Retrieval:** Programmatic ingestion of source CSVs from remote cloud storage using `requests` and `io`.
@@ -70,4 +73,4 @@ Aggregates statewide staffing hours to identify the top 10 healthcare chains by 
 A targeted algorithm to identify the top 100 facilities by labor volume and retrieve their administrator's contact details for business development outreach.
 
 ---
-*Note: This Repos was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering across research, mid-market, and enterprise environments.*
+*Note: This project was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering across research, mid-market, and enterprise environments.*
