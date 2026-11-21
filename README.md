@@ -4,7 +4,6 @@ This repository compares three ways to implement a healthcare-data ETL and analy
 
 The purpose is to show how the same analytical task can be approached in different execution environments—and how the choice of engine should reflect data size, workload, and operational needs.
 
-[**View the interactive healthcare analytics infographic**](https://panxiaoyan225-sudo.github.io/Notebooks_Databricks-Colab/healthcare_infographic.html)
 
 <img src="EngineSelection.png" alt="Comparison of data-processing engine choices" style="max-width:100%;height:auto;">
 
