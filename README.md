@@ -1,76 +1,92 @@
-# 🏥 Distributed Decision Intelligence Engine
+## Comparative Data Engineering: Colab, Pandas, and Spark
 
-## 🎯 Architectural Comparison
-Three distinct methods for handling healthcare data ETL and analytics, showcasing how workflows transition from local prototyping to enterprise-scale environments.
+This repository compares three ways to implement a healthcare-data ETL and analytics workflow: **Google Colab with SQLite, Databricks with local Python/Pandas, and Databricks with Apache Spark**.
 
-| Feature | **Method 1: Google Colab** | **Method 2: Databricks (Local)** | **Method 3: Databricks (Spark)** |
-| :--- | :--- | :--- | :--- |
-| **Engine** | Python + In-Memory SQLite | Local Python (Pandas) | Apache Spark (PySpark) |
-| **Execution** | Cloud VM (Single Node) | Databricks Driver Node | Distributed Cluster |
-| **Data Handling** | In-memory SQL | Vectorized Pandas DataFrames | Spark Partitioned RDDs |
-| **Scaling** | Small Datasets (<500MB) | Medium Datasets (<2GB) | Big Data (Multi-GB/TB) |
+The purpose is to show how the same analytical task can be approached in different execution environments—and how the choice of engine should reflect data size, workload, and operational needs.
 
----
-<img src="EngineSelection.png" style="max-width:100%; height:auto;" alt="Architecture Diagram"> 
- 
-[🏥 Interactive Analytics Infographic](https://panxiaoyan225-sudo.github.io/Notebooks_Databricks-Colab/healthcare_infographic.html)
+[**View the interactive healthcare analytics infographic**](https://panxiaoyan225-sudo.github.io/Notebooks_Databricks-Colab/healthcare_infographic.html)
 
-**An automated data engineering solution that triggered and scheduled via Databricks/ GitHub Actions.**
+<img src="EngineSelection.png" alt="Comparison of data-processing engine choices" style="max-width:100%;height:auto;">
 
-## 🚀 Overview
-The core objective is to process **Payroll-Based Journal (PBJ)** staffing hours and align them with facility records. It features a hybrid approach of using **Python** for complex data cleaning and **Relational Logic** for structured analytical reporting.
+## Use case: healthcare staffing data
 
-### Key Capabilities Demonstrated:
-- **Automated Data Retrieval:** Programmatic ingestion of source CSVs from remote cloud storage using `requests` and `io`.
-- **Robust ETL Pipelines:** Dynamic column detection and regex-based header cleaning to prevent pipeline breaks.
-- **Data Standardization:** Automated zero-padding of CMS IDs and fuzzy-matching logic for administrator contact discovery.
-- **Multimodal Orchestration:** Identical business logic implemented across SQLite, Pandas, and PySpark.
+The workflow processes Payroll-Based Journal (PBJ) staffing hours and aligns them with healthcare facility records. It combines Python-based data preparation with relational operations to produce structured analytical outputs.
 
----
+The example data domains include:
 
-## 💡 Method 1: Google Colab (Lightweight Analytics)
-Ideal for rapid prototyping and interactive documentation.
-* **Zero Setup:** Runs in any browser with no local installation required.
-* **SQLite Orchestration:** Uses an in-memory SQL engine to perform relational joins within a single "live" document.
+- **Facility information:** facility identifiers, ratings, bed counts, and locations.
+- **PBJ staffing hours:** staffing activity for RN, LPN, and CNA roles.
+- **Administrator details:** licensure and contact information used in the matching example.
 
-## 🐍 Method 2: Databricks Local Python (Optimized Performance)
-Newly added **Pandas-based** implementation for Databricks.
-* **Low Overhead:** Executes entirely on the cluster's Driver node, bypassing Spark's distribution overhead for faster performance on medium-sized datasets.
-* **Dynamic Cleaning:** Features advanced regex cleaning to handle inconsistent government data headers automatically.
-* **Decision Intelligence:** Optimized for rapid iteration and high-speed data manipulation.
+## Three implementation approaches
 
-## 🧱 Method 3: Databricks Spark (Enterprise Scaling)
-The enterprise-grade version built for massive datasets and production reliability.
-* **Spark SQL Optimization:** Uses Global Temp Views for parallelized analytical queries.
-* **Production Ready:** Designed for scheduled Databricks Jobs and integration with Delta Lake architectures.
+| Dimension | Google Colab | Databricks with Pandas | Databricks with Spark |
+|---|---|---|---|
+| Processing engine | Python and in-memory SQLite | Python and Pandas | Apache Spark / PySpark |
+| Execution | Single-node notebook environment | Databricks driver | Distributed Spark environment |
+| Typical fit | Prototyping and smaller workloads | Local processing on moderate datasets | Larger workloads suited to distributed processing |
+| Main purpose | Interactive development | Lower-overhead tabular processing | Distributed data processing |
 
----
+The comparison is intended to guide engine selection, not to suggest that one tool is always superior. Actual capacity depends on data shape, memory, cluster configuration, and transformation complexity.
 
-## 📊 The Data Stack
-The project utilizes several key datasets related to healthcare operations:
-* **Facilities Table:** Metadata for skilled nursing facilities (ratings, bed counts, locations).
-* **PBJ Hours:** Staffing activity for RN, LPN, and CNA roles.
-* **Admin Details:** Licensure data including administrator names and contact emails.
+## Shared ETL and analytical steps
 
----
+Across the implementations, the workflow demonstrates:
 
-## 🛠️ Installation & Usage
+1. **Data retrieval:** programmatic access to source CSV files using Python requests and file-like streams.
+2. **Header and schema preparation:** dynamic column detection and regular-expression-based cleaning to handle inconsistent source headers.
+3. **Identifier standardization:** normalization such as zero-padding CMS identifiers.
+4. **Relational processing:** joining staffing, facility, and administrator information.
+5. **Analytical output:** aggregating staffing hours and producing facility-level or chain-level views.
 
-### For Databricks (Local Python or Spark):
-1. Import the `.ipynb` files into your Databricks Workspace.
-2. Attach the notebook to a running Cluster (Runtime 10.4 LTS or higher).
-3. **For Local Python:** Run the cell labeled `FINAL STABLE LOCAL PANDAS PORT`.
-4. **For Spark:** Run the cell labeled `CELL 1: Setup and Data Ingestion`.
+The same business problem is implemented through different processing approaches so their trade-offs can be compared.
 
----
+## Analytical examples
 
-## 🧪 Analytical Examples Included
+### 1. Chain-level staffing analysis
 
-### 1. Chain-Level Staffing Analysis
-Aggregates statewide staffing hours to identify the top 10 healthcare chains by volume and market share.
+Aggregates staffing hours to identify healthcare chains with the largest staffing volumes and compare their share of the analysed data.
 
-### 2. Admin Contact Matching
-A targeted algorithm to identify the top 100 facilities by labor volume and retrieve their administrator's contact details for business development outreach.
+### 2. Facility and administrator matching
 
----
-*Note: This project was developed as a technical assessment to demonstrate proficiency in Decision Intelligence and Data Engineering across research, mid-market, and enterprise environments.*
+Uses facility identifiers and administrator information to match records and produce a targeted list of facilities for further analysis.
+
+These are demonstrations of data preparation and analytical workflow design, not claims about a live operational healthcare service.
+
+## Automation
+
+The repository includes Databricks and GitHub Actions workflow components for triggering and scheduling the notebook-based process. The notebooks and scripts are organized around the three execution approaches:
+
+- `colab_notebooks.ipynb`
+- `databricks_python.py`
+- `databricks_spark.ipynb`
+- `python.py`
+
+See the repository workflow files for the current automation configuration.
+
+## How to explore
+
+### Google Colab
+
+Open the Colab notebook to review the single-notebook implementation using Python and in-memory SQLite.
+
+### Databricks with Pandas
+
+Import `databricks_python.py` into a Databricks workspace and run the Pandas-based workflow on the driver environment.
+
+### Databricks with Spark
+
+Import `databricks_spark.ipynb` and run the PySpark implementation in a configured Databricks cluster.
+
+The exact runtime and cluster requirements depend on the Databricks environment being used.
+
+## Position within the broader work
+
+This repository focuses on **choosing and implementing an appropriate data-processing approach**. It complements the wider data-engineering and intelligence work:
+
+- [Data Pipelines](https://github.com/panxiaoyan225-sudo/Data-Pipelines): ingestion, validation, database integration, and automation.
+- [Data-Driven Foresight](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight): predictive analysis built on structured historical data.
+
+**The right processing architecture is the one that fits the data, the workload, and the decision that needs to be supported.**
+
+*Note: This repository was developed as a technical assessment demonstrating data engineering and analytical implementation across notebook and distributed-processing environments.*
