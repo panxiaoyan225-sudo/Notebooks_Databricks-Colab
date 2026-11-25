@@ -5,7 +5,7 @@ This repository compares three ways to implement a healthcare-data ETL and analy
 The purpose is to show how the same analytical task can be approached in different execution environments—and how the choice of engine should reflect data size, workload, and operational needs.
 
 
-<img src="EngineSelection.png" alt="Comparison of data-processing engine choices" style="max-width:100%;height:auto;">
+
 
 ## Use case: healthcare staffing data
 
@@ -25,6 +25,8 @@ The example data domains include:
 | Execution | Single-node notebook environment | Databricks driver | Distributed Spark environment |
 | Typical fit | Prototyping and smaller workloads | Local processing on moderate datasets | Larger workloads suited to distributed processing |
 | Main purpose | Interactive development | Lower-overhead tabular processing | Distributed data processing |
+
+<img src="EngineSelection.png" alt="Comparison of data-processing engine choices" style="max-width:100%;height:auto;">  
 
 The comparison is intended to guide engine selection, not to suggest that one tool is always superior. Actual capacity depends on data shape, memory, cluster configuration, and transformation complexity.
 
